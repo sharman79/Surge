@@ -1,1 +1,90 @@
-1
+[General]
+# > 日志级别
+loglevel = notify
+
+# > 显示错误页面
+show-error-page-for-reject = true
+
+# > 允许 Wi-Fi 访问（局域网共享代理）
+allow-wifi-access = false
+
+# > 混合网络并发（Mac 基本无意义，关闭即可）
+all-hybrid = false
+
+# > IPv6（Mac 推荐开启）
+ipv6 = true
+
+# > 测试超时（秒）
+test-timeout = 5
+
+# > 直连 TCP 测试 URL
+internet-test-url = http://wifi.vivo.com.cn/generate_204
+
+# > 代理 TCP 测试 URL
+proxy-test-url = http://www.gstatic.com/generate_204
+
+# > 排除简单主机名
+exclude-simple-hostnames = true
+
+# > DNS
+dns-server = 223.5.5.5, 119.29.29.29
+
+# > 从 /etc/hosts 读取 DNS 记录
+read-etc-hosts = true
+
+# > HTTP API & Web 面板
+http-api-web-dashboard = false
+
+# > 跳过代理
+skip-proxy = 127.0.0.0/8, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, fc00::/7, fe80::/10, localhost, *.local, captive.apple.com
+
+# > 真实 IP 映射（解决 Fake-IP 兼容问题）
+always-real-ip = *.msftncsi.com, *.msftconnecttest.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.battle.net, *.battlenet.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*
+
+# > 禁用 GEOIP 自动更新
+disable-geoip-db-auto-update = true
+
+# > UDP退回行为（防止 UDP 泄露）
+udp-policy-not-supported-behaviour = reject
+
+[Proxy Group]
+PROXY = select, policy-path=https://cvb.l8inn.com/s/5f1b8dc1cd992bf329523441b5d0e084, update-interval=-1, include-all-proxies=0
+
+香港 = smart, include-all-proxies=0, policy-regex-filter=香港, policy-path=https://jkl.l8inn.com/s/5f1b8dc1cd992bf329523441b5d0e084, update-interval=0
+
+新加坡 = smart, policy-path=https://jkl.l8inn.com/s/5f1b8dc1cd992bf329523441b5d0e084, update-interval=0, include-all-proxies=0, policy-regex-filter=新加坡
+
+[Rule]
+PROCESS-NAME,v2ray,DIRECT
+PROCESS-NAME,xray,DIRECT
+PROCESS-NAME,clash,DIRECT
+PROCESS-NAME,naive,DIRECT
+PROCESS-NAME,trojan,DIRECT
+PROCESS-NAME,trojan-go,DIRECT
+PROCESS-NAME,ss-local,DIRECT
+PROCESS-NAME,privoxy,DIRECT
+PROCESS-NAME,leaf,DIRECT
+PROCESS-NAME,Thunder,DIRECT
+PROCESS-NAME,DownloadService,DIRECT
+PROCESS-NAME,qBittorrent,DIRECT
+PROCESS-NAME,Transmission,DIRECT
+PROCESS-NAME,fdm,DIRECT
+PROCESS-NAME,aria2c,DIRECT
+PROCESS-NAME,Folx,DIRECT
+PROCESS-NAME,NetTransport,DIRECT
+PROCESS-NAME,uTorrent,DIRECT
+PROCESS-NAME,WebTorrent,DIRECT
+DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/private.txt,DIRECT
+DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/reject.txt,REJECT
+RULE-SET,SYSTEM,DIRECT
+DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/icloud.txt,DIRECT
+DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/apple.txt,DIRECT
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list,新加坡
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Claude/Claude.list,新加坡
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Gemini/Gemini.list,新加坡
+DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/proxy.txt,PROXY
+DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/direct.txt,DIRECT
+RULE-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/telegramcidr.txt,PROXY
+RULE-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/cncidr.txt,DIRECT
+RULE-SET,LAN,DIRECT
+FINAL,PROXY,dns-failed
